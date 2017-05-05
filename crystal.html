@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Crystal Guess Game</title>
+	<link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<h1>Crystals Collector!</h1>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<p></p>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<div id="targetAnc"></div> 
+			</div>
+			<div class="col-md-4">
+				<div id="statusAnc" class="row">win</div> 
+				<div id="winsAnc" class="row">4</div> 
+				<div id="lossAnc" class="row">5</div> 
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-2">
+				<img class="crystImg img-responsive" id="crystal1" src="http://orig15.deviantart.net/86ee/f/2015/003/b/2/fantasy_crystal_2___animated_gif_by_laticis-d8cexa7.gif">				
+			</div>
+			<div class="col-md-2">
+				<img class="crystImg center-block img-responsive" id="crystal2" src="http://nonplusultra.us/cal.gif">				
+			</div>
+			<div class="col-md-2">				
+				<img class="crystImg center-block img-responsive" id="crystal3" src="https://img.washingtonpost.com/news/the-intersect/wp-content/uploads/sites/32/2015/07/pislices2.gif">				
+			</div>
+			<div class="col-md-2">				
+				<img class="crystImg center-block img-responsive" id="crystal4" src="https://68.media.tumblr.com/e22ee0fb58766aaadc90e2de54d8ff0c/tumblr_o6gtw209qN1ucz71vo1_500.gif">
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div> your total score is:</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div id="scoreAnc">0</div>
+			</div>
+		</div>
+
+	<script src="https://code.jquery.com/jquery-3.1.1.js"></script>
+
+	<script type="text/javascript">
+	function l(what) {
+		return $("#"+ what);
+	}
+	var game = {
+		target: 0,
+		score: 0,
+		result: null,
+		crystal1: null,
+		crystal2: null,
+		crystal3: null,
+		crystal4: null,
+		winCount: 0,
+		lossCount: 0,
+		winDisp: l("winsAnc"),
+		lossDisp: l("lossAnc"),
+		targetDisp: l("targetAnc"),
+		statusDisp: l("statusAnc"),
+		scoreDisp: l("scoreAnc"),
+
+
+		setCrystal: function(){
+			var crystal = {
+				value: Math.floor(Math.random()*12)
+			}
+			return crystal;
+		},
+
+		setGame: function(){
+			game.crystal1= game.setCrystal();
+			game.crystal2= game.setCrystal();
+			game.crystal3= game.setCrystal();
+			game.crystal4= game.setCrystal();
+			game.score=0;
+			game.target = Math.floor(Math.random() * 102) + 19;
+			game.updateDisplays();
+			// console.log(game.crystal1);
+			// console.log(game.crystal2);
+			// console.log(game.crystal3);
+			// console.log(game.crystal4);
+		},
+
+		updateDisplays: function(){
+			game.targetDisp.html(game.target);
+			game.winDisp.html(game.winCount);
+			game.lossDisp.html(game.lossCount);
+			game.statusDisp.html(game.result);
+			game.updateScore();
+
+		},
+
+		updateScore: function(){
+			game.scoreDisp.html(game.score);
+		}
+
+
+	}
+
+	$( ".crystImg" ).click(function()	{
+		game.score= game.score + game[this.id].value;
+		console.log(this);
+		console.log(game[this.id].value);
+		game.updateScore();
+	})
+	</script>
+
+	
+
+</body>
+</html>
